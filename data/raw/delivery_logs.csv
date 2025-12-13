@@ -1,0 +1,6 @@
+Trip_ID,Expected_Delivery_Time,Actual_Delivery_Time,Delay_Minutes
+T001,12:00,12:15,15
+T002,11:00,10:50,-10
+T003,12:30,12:45,15
+T004,11:00,11:05,5
+T005,10:30,10:40,10

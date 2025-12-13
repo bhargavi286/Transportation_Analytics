@@ -1,0 +1,6 @@
+Trip_ID,Vehicle_ID,Route,Distance_km,Start_Time,End_Time
+T001,V001,CityA-CityB,120,08:00,12:00
+T002,V002,CityB-CityC,80,09:00,11:00
+T003,V003,CityA-CityD,200,07:30,12:30
+T004,V004,CityC-CityD,50,10:00,11:00
+T005,V005,CityD-CityE,150,06:00,10:30

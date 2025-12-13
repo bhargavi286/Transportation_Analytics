@@ -1,0 +1,6 @@
+Vehicle_ID,Vehicle_Type,Capacity
+V001,Truck,1000
+V002,Van,500
+V003,Truck,1200
+V004,Bike,100
+V005,Van,600
