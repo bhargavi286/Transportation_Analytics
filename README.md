@@ -62,6 +62,9 @@ Results
 
 The trained model achieves reliable performance on the given dataset, and the dashboard enables easy interpretation of transportation trends and fuel efficiency metrics.
 
+🔗 Live Dashboard: [Transportation Analytics Dashboard](https://transportationanalytics-tnithndesbpc3ykn74vymh.streamlit.app/)
+
+
 Conclusion
 
 This project demonstrates practical skills in data analytics, machine learning, and dashboard development, aligning with real-world transportation and logistics use cases.
