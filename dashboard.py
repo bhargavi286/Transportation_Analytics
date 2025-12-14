@@ -14,12 +14,14 @@ st.set_page_config(
 st.title(" Transportation Analytics Dashboard")
 
 
-DATA_PATH = r"C:\Users\admin\Desktop\Transportation_Analytics\data\cleaned\master_analytics.csv"
-MODEL_PATH = r"D:\models\fuel_efficiency_model.pkl"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+DATA_PATH = os.path.join(BASE_DIR, "data", "cleaned", "master_analytics.csv")
+MODEL_PATH = os.path.join(BASE_DIR, "models", "fuel_efficiency_model.pkl")
 
 
 if not os.path.exists(DATA_PATH):
-    st.error(" master_analytics.csv not found")
+    st.error(" master_analytics.csv not found in data/cleaned/")
     st.stop()
 
 df = pd.read_csv(DATA_PATH)
@@ -32,13 +34,13 @@ if not os.path.exists(MODEL_PATH):
 
 try:
     model = joblib.load(MODEL_PATH)
-    st.success(" Model loaded successfully")
-except Exception:
+    st.success(" ML Model loaded successfully")
+except Exception as e:
     st.error(" Model file corrupted. Re-run model_training.py")
     st.stop()
 
 
-st.subheader("Dataset Overview")
+st.subheader(" Dataset Overview")
 st.dataframe(df.head())
 
 
@@ -52,15 +54,17 @@ sns.barplot(
     ax=ax1
 )
 ax1.set_title("Fuel Efficiency per Vehicle")
+ax1.tick_params(axis='x', rotation=45)
 st.pyplot(fig1)
 
 
-st.subheader("Delivery Delay Distribution")
+st.subheader(" Delivery Delay Distribution")
 
 fig2, ax2 = plt.subplots(figsize=(8, 4))
 sns.histplot(df["Delay_Minutes"], bins=10, kde=True, ax=ax2)
 ax2.set_title("Delivery Delay Distribution")
 st.pyplot(fig2)
+
 
 st.subheader(" Correlation Heatmap")
 
@@ -73,14 +77,16 @@ st.pyplot(fig3)
 
 st.subheader(" Predict Fuel Efficiency")
 
-distance = st.number_input("Distance (km)", min_value=1.0)
+distance = st.number_input("Distance Travelled (km)", min_value=1.0)
 fuel_used = st.number_input("Fuel Used (litres)", min_value=0.1)
 delay = st.number_input("Delay (minutes)", min_value=0.0)
 
-if st.button("Predict"):
+if st.button("Predict Fuel Efficiency"):
     try:
-        input_data = [[distance, fuel_used, delay, 0, 0, 0, 0, 0, 0]]
+        
+        input_data = [[distance, fuel_used, delay]]
         prediction = model.predict(input_data)
-        st.success(f" Predicted Fuel Efficiency: {prediction[0]:.2f} km/L")
-    except Exception as e:
-        st.error("Prediction failed. Check model features.")
+
+        st.success(f" Predicted Fuel Efficiency: **{prediction[0]:.2f} km/L**")
+    except Exception:
+        st.error(" Prediction failed. Feature mismatch.")
